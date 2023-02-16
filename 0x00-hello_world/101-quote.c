@@ -21,5 +21,3 @@ __asm__ ("syscall"
 "d" (l));
 return (1);
 }
-Footer
-© 2023 GitHub, Inc.
