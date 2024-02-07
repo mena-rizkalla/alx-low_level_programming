@@ -10,46 +10,44 @@
  * Return:return the index where value is located
  */
 
-int binary_search(int *array, size_t size, int value){
-
+int binary_search(int *array, size_t size, int value)
+{
 	size_t l = 0;
 	size_t r = size - 1;
- 
+
 	if (array == NULL)
 		return (-1);
 
-	while(l <= r)
+	while (l <= r)
 	{
 		size_t i, m;
 
-		printf("Seatching in array: ");
-		for(i =l; i<=r; i++){
-		
-			printf("%d",array[i]);
+		printf("Searching in array: ");
+		for (i = l; i <= r; i++)
+		{
+			printf("%d", array[i]);
 
-			if (i == r){
+			if (i == r)
+			{
 				printf("\n");
 				break;
 			}
 			printf(", ");
 		}
-		m = l + (r-l)/2;
+		m = l + (l - r) / 2;
 
-		if(value == array[m])
+		if (value == array[m])
 		{
-			return m;
+			return (m);
 		}
 		else if (value < array[m])
-		{ 
-		
+		{
 			r = m - 1;
 		}
-		else 
+		else
 		{
 			l = m + 1;
 		}
 	}
-
 	return (-1);
-
 }
