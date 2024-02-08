@@ -1,43 +1,37 @@
 #include "search_algos.h"
 
 /**
- * interpolation_search - Searches for an item in a unifrom array.
- *
- * @array: Pointer to the first item.
- * @size: Size of the array.
- * @value: Value to look for.
+ * interpolation_search - Searches a value in a sorted array using \
+ * an interpolation search.
+ * @array: The array to search in.
+ * @size: The length of the array.
+ * @value: The value to look for.
  *
  * Return: The first index of the value in the array, otherwise -1.
  */
 int interpolation_search(int *array, size_t size, int value)
 {
-	size_t l, r, probe;
+	size_t low = 0, high = size - 1, pos = 0;
+	double tmp;
 
-	l = 0, r = size - 1;
-
-	while (value >= *(array + l) && value <= *(array + r) && l <= r)
+	if (!array)
+		return (-1);
+	while (array[high] != array[low])
 	{
-		if (size == 0)
+		tmp = (double)(high - low) / (array[high] - array[low]);
+		pos = low + (tmp * (value - array[low]));
+		if (pos >= size)
+		{
+			printf("Value checked array[%d] is out of range\n", (int)pos);
 			break;
-
-		probe = l + (r - l) * (value - *(array + l))
-			/ (*(array + r) - *(array + l));
-
-		printf("Value checked array[%ld] = [%d]\n", probe, *(array + probe));
-
-		if (*(array + probe) == value)
-			return ((int) probe);
-
-		if (*(array + probe) < value)
-			l = probe + 1;
+		}
+		printf("Value checked array[%d] = [%d]\n", (int)pos, array[pos]);
+		if (array[pos] == value)
+			return (pos);
+		else if (array[pos] < value)
+			low = pos + 1;
 		else
-			r = probe - 1;
-
+			high = pos - 1;
 	}
-
-	probe = l + (r - l) * (value - *(array + l))
-		/ (*(array + r) - *(array + l));
-	printf("Value checked array[%lu] is out of range\n", probe);
-
-	return (-1);
+	return (value == array[low] ? (int)low : -1);
 }
